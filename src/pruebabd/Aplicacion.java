@@ -5,17 +5,27 @@
  */
 package pruebabd;
 
+import cl.modelo.Persona;
+import cl.modelo.TMPersona;
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author user
  */
-public class ConsPersonas extends javax.swing.JFrame {
+public class Aplicacion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConsPersonas
-     */
-    public ConsPersonas() {
+    private List<Persona>personas;
+    
+    
+    public Aplicacion() {
         initComponents();
+        personas = new ArrayList<>();
+        
+        personas.add(new Persona(1,"Nestor","Espinola","0986931330"));
+        personas.add(new Persona(2,"Carlos","Ramirez","0984556764"));
+        personas.add(new Persona(3,"Rosa","Caceres","0984333445"));
     }
 
     /**
@@ -29,7 +39,7 @@ public class ConsPersonas extends javax.swing.JFrame {
 
         lbl_ConsPersonas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -38,7 +48,7 @@ public class ConsPersonas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(630, 340));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -69,7 +79,7 @@ public class ConsPersonas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tab);
 
         jLabel1.setText("Documento:");
 
@@ -131,20 +141,21 @@ public class ConsPersonas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsPersonas().setVisible(true);
+                new Aplicacion().setVisible(true);
             }
         });
     }
@@ -153,9 +164,9 @@ public class ConsPersonas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbl_ConsPersonas;
+    private javax.swing.JTable tab;
     // End of variables declaration//GEN-END:variables
 }
