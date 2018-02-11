@@ -3,12 +3,22 @@
  * CI: 4.543.390
  * Analisis De Sistemas
  */
-package pruebabd;
+package cl.principal;
 
 import cl.modelo.Persona;
 import cl.modelo.TMPersona;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,16 +26,54 @@ import java.util.ArrayList;
  */
 public class Aplicacion extends javax.swing.JFrame {
 
-    private List<Persona>personas;
+    private List<Persona> personas;
+    private TMPersona modelo;
+
     
-    
+    ResultSet rs;
+    PreparedStatement pps;
+    ResultSetMetaData rsm;
+    DefaultTableModel dtm;
+
     public Aplicacion() {
         initComponents();
-        personas = new ArrayList<>();
+        /*personas = new ArrayList<>();
+
+        personas.add(new Persona(1, "Nestor", "Espinola", "0986931330"));
+        personas.add(new Persona(2, "Carlos", "Ramirez", "0984556764"));
+        personas.add(new Persona(3, "Rosa", "Caceres", "0984333445"));
+
+        modelo = new TMPersona(personas);
+
+        tab.setModel(modelo);*/
+        cargar("");
         
-        personas.add(new Persona(1,"Nestor","Espinola","0986931330"));
-        personas.add(new Persona(2,"Carlos","Ramirez","0984556764"));
-        personas.add(new Persona(3,"Rosa","Caceres","0984333445"));
+    }
+    void cargar(String valor){
+        String [] titulos = {"Codigo","Nombre","Apellido","Direccion","Correo","Telefono"};
+        String [] registros = new String[6];
+        String sql = "SELECT * FROM personas WHERE nom_persona LIKE '%"+valor+"%'";
+        
+        dtm = new DefaultTableModel(null,titulos); 
+        ConexionBD2 con = new ConexionBD2();
+        Connection cn = con.conexion1();
+        try{
+        Statement st = cn.createStatement();
+        rs = st.executeQuery(sql);
+            while (rs.next()) {
+                registros[0] = rs.getString("cod_persona");
+                registros[1] = rs.getString("nom_persona");
+                registros[2] = rs.getString("ape_persona");
+                registros[3] = rs.getString("dir_persona");
+                registros[4] = rs.getString("corr_persona");
+                registros[5] = rs.getString("tel_persona");
+                dtm.addRow(registros);
+            }
+        }
+        catch(SQLException exe){
+            JOptionPane.showMessageDialog(rootPane, exe.getMessage());
+        }
+        tab.setModel(dtm);
     }
 
     /**
@@ -42,8 +90,8 @@ public class Aplicacion extends javax.swing.JFrame {
         tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        cons_documento = new javax.swing.JTextField();
+        cons_nombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(630, 340));
@@ -85,6 +133,18 @@ public class Aplicacion extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre:");
 
+        cons_documento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cons_documentoKeyTyped(evt);
+            }
+        });
+
+        cons_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cons_nombreKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,11 +156,11 @@ public class Aplicacion extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cons_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cons_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_ConsPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -113,8 +173,8 @@ public class Aplicacion extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cons_documento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cons_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -123,6 +183,34 @@ public class Aplicacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cons_documentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cons_documentoKeyTyped
+       /* try {
+            pps = cn.prepareStatement("select cod_persona,nom_persona,ape_persona,dir_persona,corr_persona,tel_persona from personas");
+            rs = pps.executeQuery();
+            rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while(rs.next()){
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) this.tab.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de SQL N°: " + ex.getMessage());
+        }*/
+
+    }//GEN-LAST:event_cons_documentoKeyTyped
+
+    private void cons_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cons_nombreKeyReleased
+        cargar(cons_nombre.getText());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cons_nombreKeyReleased
 
     /**
      * @param args the command line arguments
@@ -161,11 +249,11 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cons_documento;
+    private javax.swing.JTextField cons_nombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbl_ConsPersonas;
     private javax.swing.JTable tab;
     // End of variables declaration//GEN-END:variables

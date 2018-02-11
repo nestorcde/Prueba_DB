@@ -114,7 +114,26 @@ public class TMPersona implements TableModel{
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Persona p = personas.get(rowIndex);
         
+        switch(columnIndex){
+            case 0:{
+                p.setCodPersona(aValue.hashCode());
+                break;
+            }
+            case 1:{
+                p.setNomPersona(aValue.toString());
+                break;
+            }
+            case 2:{
+                p.setApePersona(aValue.toString());
+                break;
+            }
+            case 3:{
+                p.setTelPersona(aValue.toString());
+                break;
+            }
+        }
     }
 
     @Override

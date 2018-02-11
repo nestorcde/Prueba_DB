@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebabd;
+package cl.principal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,9 +27,34 @@ public class regPersonas extends javax.swing.JFrame {
     public regPersonas() {
         initComponents();
         this.setLocationRelativeTo(null);
+        limpiar();
+        bloquear();
     }
     ConexionBD2 con = new ConexionBD2();
     Connection cn = con.conexion1();
+    void limpiar(){
+        txt_nombre.setText("");
+        txt_apellido.setText("");
+        txt_direccion.setText("");
+        txt_correo.setText("");
+        txt_telefono.setText("");
+    }
+    void bloquear(){
+        txt_nombre.setEnabled(false);
+        txt_apellido.setEnabled(false);
+        txt_direccion.setEnabled(false);
+        txt_correo.setEnabled(false);
+        txt_telefono.setEnabled(false);
+        btn_guardar.setEnabled(false);
+    }
+    void desbloquear(){
+        txt_nombre.setEnabled(true);
+        txt_apellido.setEnabled(true);
+        txt_direccion.setEnabled(true);
+        txt_correo.setEnabled(true);
+        txt_telefono.setEnabled(true);
+        btn_guardar.setEnabled(true);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +76,9 @@ public class regPersonas extends javax.swing.JFrame {
         txt_telefono = new javax.swing.JTextField();
         txt_nombre = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
+        btn_consultar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btn_Nuevo = new javax.swing.JButton();
         lbl_fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,7 +147,40 @@ public class regPersonas extends javax.swing.JFrame {
                 btn_guardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 230, 40));
+        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 160, 30));
+
+        btn_consultar.setText("Consultar Personas");
+        btn_consultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_consultarMouseReleased(evt);
+            }
+        });
+        btn_consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_consultarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 150, 30));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("REGISTRO DE PERSONAS");
+        jLabel1.setToolTipText("");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 390, 40));
+
+        btn_Nuevo.setText("Nuevo Registro");
+        btn_Nuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_NuevoMouseReleased(evt);
+            }
+        });
+        btn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NuevoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 160, 30));
 
         lbl_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/azules-14.jpg"))); // NOI18N
         lbl_fondo.setLabelFor(lbl_fondo);
@@ -173,6 +234,8 @@ public class regPersonas extends javax.swing.JFrame {
                 System.out.println("Error de SQL"+e);
             }
         }
+        limpiar();
+        bloquear();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_apellidoActionPerformed
@@ -183,6 +246,24 @@ public class regPersonas extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<' ' || c>' '))evt.consume();
     }//GEN-LAST:event_txt_apellidoKeyTyped
+
+    private void btn_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_consultarActionPerformed
+
+    private void btn_consultarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_consultarMouseReleased
+        Aplicacion ejecutar = new Aplicacion();
+        ejecutar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_consultarMouseReleased
+
+    private void btn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_NuevoActionPerformed
+
+    private void btn_NuevoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NuevoMouseReleased
+        desbloquear();
+    }//GEN-LAST:event_btn_NuevoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -223,7 +304,10 @@ public class regPersonas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Nuevo;
+    private javax.swing.JButton btn_consultar;
     private javax.swing.JButton btn_guardar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_apellido;
     private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_direccion;

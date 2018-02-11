@@ -1,5 +1,5 @@
 
-package pruebabd;
+package cl.principal;
 
 import java.sql.*;
 
