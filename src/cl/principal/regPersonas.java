@@ -33,6 +33,7 @@ public class regPersonas extends javax.swing.JFrame {
     ConexionBD2 con = new ConexionBD2();
     Connection cn = con.conexion1();
     void limpiar(){
+        txt_cedula.setText("");
         txt_nombre.setText("");
         txt_apellido.setText("");
         txt_direccion.setText("");
@@ -40,6 +41,7 @@ public class regPersonas extends javax.swing.JFrame {
         txt_telefono.setText("");
     }
     void bloquear(){
+        txt_cedula.setEnabled(false);
         txt_nombre.setEnabled(false);
         txt_apellido.setEnabled(false);
         txt_direccion.setEnabled(false);
@@ -48,6 +50,7 @@ public class regPersonas extends javax.swing.JFrame {
         btn_guardar.setEnabled(false);
     }
     void desbloquear(){
+        txt_cedula.setEnabled(true);
         txt_nombre.setEnabled(true);
         txt_apellido.setEnabled(true);
         txt_direccion.setEnabled(true);
@@ -79,6 +82,8 @@ public class regPersonas extends javax.swing.JFrame {
         btn_consultar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btn_Nuevo = new javax.swing.JButton();
+        lbl_nombre1 = new javax.swing.JLabel();
+        txt_cedula = new javax.swing.JTextField();
         lbl_fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,23 +94,23 @@ public class regPersonas extends javax.swing.JFrame {
 
         lbl_apellido.setForeground(new java.awt.Color(255, 255, 255));
         lbl_apellido.setText("Apellido:");
-        getContentPane().add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        getContentPane().add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, 20));
 
         lbl_direccion.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_direccion.setText("Direccion");
-        getContentPane().add(lbl_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        lbl_direccion.setText("Direccion:");
+        getContentPane().add(lbl_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, -1, 20));
 
         lbl_correo.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_correo.setText("Correo");
-        getContentPane().add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        lbl_correo.setText("Correo:");
+        getContentPane().add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, 20));
 
         lbl_telefono.setForeground(new java.awt.Color(255, 255, 255));
         lbl_telefono.setText("Telefono: ");
-        getContentPane().add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+        getContentPane().add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, 20));
 
         lbl_nombre.setForeground(new java.awt.Color(255, 255, 255));
         lbl_nombre.setText("Nombre: ");
-        getContentPane().add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        getContentPane().add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, 20));
 
         txt_apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,29 +122,29 @@ public class regPersonas extends javax.swing.JFrame {
                 txt_apellidoKeyTyped(evt);
             }
         });
-        getContentPane().add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 270, -1));
+        getContentPane().add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 240, -1));
 
         txt_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_direccionActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 270, -1));
-        getContentPane().add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 270, -1));
+        getContentPane().add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 240, -1));
+        getContentPane().add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 240, -1));
 
         txt_telefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_telefonoKeyTyped(evt);
             }
         });
-        getContentPane().add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 180, -1));
+        getContentPane().add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 240, -1));
 
         txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_nombreKeyTyped(evt);
             }
         });
-        getContentPane().add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 270, -1));
+        getContentPane().add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 240, -1));
 
         btn_guardar.setText("Guardar");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +152,7 @@ public class regPersonas extends javax.swing.JFrame {
                 btn_guardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 160, 30));
+        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 160, 30));
 
         btn_consultar.setText("Consultar Personas");
         btn_consultar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,7 +165,7 @@ public class regPersonas extends javax.swing.JFrame {
                 btn_consultarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 150, 30));
+        getContentPane().add(btn_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 150, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -180,11 +185,22 @@ public class regPersonas extends javax.swing.JFrame {
                 btn_NuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 160, 30));
+        getContentPane().add(btn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 160, 30));
+
+        lbl_nombre1.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_nombre1.setText("Cedula:");
+        getContentPane().add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, 20));
+
+        txt_cedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_cedulaKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 240, -1));
 
         lbl_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/azules-14.jpg"))); // NOI18N
         lbl_fondo.setLabelFor(lbl_fondo);
-        getContentPane().add(lbl_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 340));
+        getContentPane().add(lbl_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,14 +220,16 @@ public class regPersonas extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_telefonoKeyTyped
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        String texto1, texto2, texto3, texto4, texto5;
+        String  texto1, texto2, texto3, texto4, texto5;
+        Integer texto0;
         
+        texto0 = Integer.parseInt(txt_cedula.getText());
         texto1 = txt_nombre.getText();
         texto2 = txt_apellido.getText();
         texto3 = txt_direccion.getText();
         texto4 = txt_correo.getText();
         texto5 = txt_telefono.getText();
-        if(txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_direccion.getText().equals("") || txt_correo.getText().equals("") || txt_telefono.getText().equals("")){
+        if(txt_cedula.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_direccion.getText().equals("") || txt_correo.getText().equals("") || txt_telefono.getText().equals("")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos","AVISO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             txt_nombre.requestFocus();
         }else{
@@ -219,12 +237,13 @@ public class regPersonas extends javax.swing.JFrame {
                 /*Statement st = cn.createStatement();
                 st.executeUpdate("INSERT INTO clientes VALUES('"+texto1+"','"+texto2+"','"+texto3+"','"+texto4+"','"+texto5+"')");
                     */
-                PreparedStatement pps = cn.prepareStatement("INSERT INTO personas(nom_persona,ape_persona,dir_persona,corr_persona,tel_persona) VALUES(?,?,?,?,?)");
-                    pps.setString(1,texto1);
-                    pps.setString(2,texto2);
-                    pps.setString(3,texto3);
-                    pps.setString(4,texto4);
-                    pps.setString(5,texto5);
+                PreparedStatement pps = cn.prepareStatement("INSERT INTO personas(ced_persona,nom_persona,ape_persona,dir_persona,corr_persona,tel_persona) VALUES(?,?,?,?,?,?)");
+                    pps.setInt(1,texto0);
+                    pps.setString(2,texto1);
+                    pps.setString(3,texto2);
+                    pps.setString(4,texto3);
+                    pps.setString(5,texto4);
+                    pps.setString(6,texto5);
                     pps.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Datos Guardados");
                     pps.close();
@@ -263,7 +282,13 @@ public class regPersonas extends javax.swing.JFrame {
 
     private void btn_NuevoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NuevoMouseReleased
         desbloquear();
+        txt_cedula.requestFocus();
     }//GEN-LAST:event_btn_NuevoMouseReleased
+
+    private void txt_cedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cedulaKeyTyped
+         char c = evt.getKeyChar();
+        if((c<'0' || c>'9')) evt.consume();
+    }//GEN-LAST:event_txt_cedulaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -313,8 +338,10 @@ public class regPersonas extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_direccion;
     private javax.swing.JLabel lbl_fondo;
     private javax.swing.JLabel lbl_nombre;
+    private javax.swing.JLabel lbl_nombre1;
     private javax.swing.JLabel lbl_telefono;
     private javax.swing.JTextField txt_apellido;
+    private javax.swing.JTextField txt_cedula;
     private javax.swing.JTextField txt_correo;
     private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_nombre;

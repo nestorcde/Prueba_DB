@@ -50,9 +50,10 @@ public class Aplicacion extends javax.swing.JFrame {
         
     }
     void cargar(String valor){
-        String [] titulos = {"Codigo","Nombre","Apellido","Direccion","Correo","Telefono"};
-        String [] registros = new String[6];
-        String sql = "SELECT * FROM personas WHERE nom_persona LIKE '%"+valor+"%'";
+        valor = valor.toUpperCase();
+        String [] titulos = {"Codigo","Cedula","Nombre","Apellido","Direccion","Correo","Telefono"};
+        String [] registros = new String[7];
+        String sql = "SELECT * FROM personas WHERE UPPER(nom_persona) LIKE '%"+valor+"%' or UPPER(ape_persona) LIKE '%"+valor+"%'";
         
         dtm = new DefaultTableModel(null,titulos); 
         ConexionBD2 con = new ConexionBD2();
@@ -62,11 +63,12 @@ public class Aplicacion extends javax.swing.JFrame {
         rs = st.executeQuery(sql);
             while (rs.next()) {
                 registros[0] = rs.getString("cod_persona");
-                registros[1] = rs.getString("nom_persona");
-                registros[2] = rs.getString("ape_persona");
-                registros[3] = rs.getString("dir_persona");
-                registros[4] = rs.getString("corr_persona");
-                registros[5] = rs.getString("tel_persona");
+                registros[1] = rs.getString("ced_persona");
+                registros[2] = rs.getString("nom_persona");
+                registros[3] = rs.getString("ape_persona");
+                registros[4] = rs.getString("dir_persona");
+                registros[5] = rs.getString("corr_persona");
+                registros[6] = rs.getString("tel_persona");
                 dtm.addRow(registros);
             }
         }
@@ -88,9 +90,7 @@ public class Aplicacion extends javax.swing.JFrame {
         lbl_ConsPersonas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cons_documento = new javax.swing.JTextField();
         cons_nombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,46 +98,45 @@ public class Aplicacion extends javax.swing.JFrame {
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Telefono"
+                "Codigo", "Cedula", "Nombre", "Apellido", "Telefono", "Direccion", "Correo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(tab);
 
-        jLabel1.setText("Documento:");
-
-        jLabel2.setText("Nombre:");
-
-        cons_documento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cons_documentoKeyTyped(evt);
-            }
-        });
+        jLabel2.setText("Busqueda");
 
         cons_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -154,13 +153,10 @@ public class Aplicacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cons_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(79, 79, 79)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cons_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(cons_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_ConsPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -169,12 +165,9 @@ public class Aplicacion extends javax.swing.JFrame {
             .addComponent(lbl_ConsPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                        .addComponent(cons_documento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cons_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cons_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -184,31 +177,9 @@ public class Aplicacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cons_documentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cons_documentoKeyTyped
-       /* try {
-            pps = cn.prepareStatement("select cod_persona,nom_persona,ape_persona,dir_persona,corr_persona,tel_persona from personas");
-            rs = pps.executeQuery();
-            rsm = rs.getMetaData();
-            ArrayList<Object[]> data = new ArrayList<>();
-            while(rs.next()){
-                Object[] rows = new Object[rsm.getColumnCount()];
-                for (int i = 0; i < rows.length; i++) {
-                    rows[i] = rs.getObject(i + 1);
-                }
-                data.add(rows);
-            }
-            dtm = (DefaultTableModel) this.tab.getModel();
-            for (int i = 0; i < data.size(); i++) {
-                dtm.addRow(data.get(i));
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de SQL N°: " + ex.getMessage());
-        }*/
-
-    }//GEN-LAST:event_cons_documentoKeyTyped
-
     private void cons_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cons_nombreKeyReleased
-        cargar(cons_nombre.getText());
+        
+        cargar(cons_nombre.getText().toUpperCase());
         // TODO add your handling code here:
     }//GEN-LAST:event_cons_nombreKeyReleased
 
@@ -249,9 +220,7 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField cons_documento;
     private javax.swing.JTextField cons_nombre;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_ConsPersonas;
