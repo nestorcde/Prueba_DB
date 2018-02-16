@@ -3,8 +3,9 @@
  * CI: 4.543.390
  * Analisis De Sistemas
  */
-package cl.principal;
+package cl.vista;
 
+import cl.conexion.ConexionBD2;
 import cl.modelo.Persona;
 import cl.modelo.TMPersona;
 import java.sql.Connection;
@@ -24,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author user
  */
-public class Aplicacion extends javax.swing.JFrame {
+public class ConsPersonas extends javax.swing.JFrame {
 
     private List<Persona> personas;
     private TMPersona modelo;
@@ -35,7 +36,7 @@ public class Aplicacion extends javax.swing.JFrame {
     ResultSetMetaData rsm;
     DefaultTableModel dtm;
 
-    public Aplicacion() {
+    public ConsPersonas() {
         initComponents();
         this.setLocationRelativeTo(null);
         /*personas = new ArrayList<>();
@@ -201,21 +202,23 @@ public class Aplicacion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Aplicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Aplicacion().setVisible(true);
+                new ConsPersonas().setVisible(true);
             }
         });
     }

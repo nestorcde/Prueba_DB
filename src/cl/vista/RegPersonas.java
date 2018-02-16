@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.principal;
+package cl.vista;
 
+import cl.conexion.ConexionBD2;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,14 +19,14 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class regPersonas extends javax.swing.JFrame {
+public class RegPersonas extends javax.swing.JFrame {
     
     
 
     /**
      * Creates new form regUsuario
      */
-    public regPersonas() {
+    public RegPersonas() {
         initComponents();
         this.setLocationRelativeTo(null);
         limpiar();
@@ -258,11 +259,11 @@ public class regPersonas extends javax.swing.JFrame {
                     cn.close();
         
             }catch(SQLException e){
-                System.out.println("Error de SQL"+e);
+                System.out.println("Error de SQL "+e.getMessage());
             }
+            limpiar();
+            bloquear();
         }
-        limpiar();
-        bloquear();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_apellidoActionPerformed
@@ -279,7 +280,7 @@ public class regPersonas extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_consultarActionPerformed
 
     private void btn_consultarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_consultarMouseReleased
-        Aplicacion ejecutar = new Aplicacion();
+        ConsPersonas ejecutar = new ConsPersonas();
         ejecutar.setVisible(true);
         
     }//GEN-LAST:event_btn_consultarMouseReleased
@@ -327,6 +328,8 @@ public class regPersonas extends javax.swing.JFrame {
         String sql = "SELECT * FROM personas WHERE ced_persona = "+c+"";
         ConexionBD2 con = new ConexionBD2();
         Connection cn = con.conexion1();
+        String nombre = null;
+        String apellido = null;
        
         String res = null;
         try {
@@ -337,10 +340,12 @@ public class regPersonas extends javax.swing.JFrame {
             while(rs.next()){
             
             res = rs.getString("ced_persona");
+            nombre = rs.getString("nom_persona");
+            apellido = rs.getString("ape_persona");
             if(res == null){
                 txt_nombre.requestFocus();
             }else{
-                JOptionPane.showMessageDialog(null, "El numero de Cedula ya Existe, Ingrese Otro");
+                JOptionPane.showMessageDialog(null, "El numero de Cedula: "+res+" ya Existe\nPertenece a "+nombre+" "+apellido+"\nIngrese Otro");
                 txt_cedula.requestFocus();
             }
             }
@@ -368,21 +373,23 @@ public class regPersonas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(regPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(regPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(regPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(regPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new regPersonas().setVisible(true);
+                new RegPersonas().setVisible(true);
                
             }
         });

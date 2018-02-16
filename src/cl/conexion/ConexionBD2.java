@@ -1,5 +1,5 @@
 
-package cl.principal;
+package cl.conexion;
 
 import java.sql.*;
 
