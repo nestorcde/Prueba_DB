@@ -37,6 +37,7 @@ public class Aplicacion extends javax.swing.JFrame {
 
     public Aplicacion() {
         initComponents();
+        this.setLocationRelativeTo(null);
         /*personas = new ArrayList<>();
 
         personas.add(new Persona(1, "Nestor", "Espinola", "0986931330"));
@@ -93,7 +94,7 @@ public class Aplicacion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cons_nombre = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(630, 340));
 
         tab.setModel(new javax.swing.table.DefaultTableModel(

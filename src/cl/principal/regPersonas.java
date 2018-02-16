@@ -8,6 +8,7 @@ package cl.principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -88,7 +89,6 @@ public class regPersonas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Usuarios");
-        setAlwaysOnTop(true);
         setIconImages(null);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -191,7 +191,15 @@ public class regPersonas extends javax.swing.JFrame {
         lbl_nombre1.setText("Cedula:");
         getContentPane().add(lbl_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, 20));
 
+        txt_cedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_cedulaFocusLost(evt);
+            }
+        });
         txt_cedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_cedulaKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_cedulaKeyTyped(evt);
             }
@@ -273,7 +281,7 @@ public class regPersonas extends javax.swing.JFrame {
     private void btn_consultarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_consultarMouseReleased
         Aplicacion ejecutar = new Aplicacion();
         ejecutar.setVisible(true);
-        this.setVisible(false);
+        
     }//GEN-LAST:event_btn_consultarMouseReleased
 
     private void btn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NuevoActionPerformed
@@ -289,6 +297,58 @@ public class regPersonas extends javax.swing.JFrame {
          char c = evt.getKeyChar();
         if((c<'0' || c>'9')) evt.consume();
     }//GEN-LAST:event_txt_cedulaKeyTyped
+
+    private void txt_cedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cedulaKeyReleased
+        /*Integer c = Integer.parseInt(txt_cedula.getText());
+        String sql = "SELECT ced_persona::Integer FROM personas WHERE ced_persona = "+c;
+        ConexionBD2 con = new ConexionBD2();
+        Connection cn = con.conexion1();
+        ResultSet rs;
+        Statement st;
+        Integer res = 0;
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+            res = rs.getInt("ced_persona");
+            if(res != 0){
+                txt_nombre.requestFocus();
+            }else{
+                JOptionPane.showMessageDialog(null, "El numero de Cedula ya Existe, Ingrese Otro");
+                txt_cedula.requestFocus();
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error de SQL "+ ex.getMessage());
+        }*/
+    }//GEN-LAST:event_txt_cedulaKeyReleased
+
+    private void txt_cedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cedulaFocusLost
+            Integer c = Integer.parseInt(txt_cedula.getText());
+        String sql = "SELECT * FROM personas WHERE ced_persona = "+c+"";
+        ConexionBD2 con = new ConexionBD2();
+        Connection cn = con.conexion1();
+       
+        String res = null;
+        try {
+            ResultSet rs;
+            Statement st;
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+            
+            res = rs.getString("ced_persona");
+            if(res == null){
+                txt_nombre.requestFocus();
+            }else{
+                JOptionPane.showMessageDialog(null, "El numero de Cedula ya Existe, Ingrese Otro");
+                txt_cedula.requestFocus();
+            }
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error de SQL "+ ex.getMessage());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cedulaFocusLost
 
     /**
      * @param args the command line arguments
